@@ -1,0 +1,239 @@
+*{margin: 0; padding: 0; box-sizing: border-box;}
+/* 여기에서 box-sizing 미리써주면 만드는 애들 padding때매 사이즈 커지는 거 신경안써도 돼 전부 알아서 맞춰줌 */
+li {list-style: none;}
+a {text-decoration: none; color: #111;}
+/* img 태그선택자, 이미지의 크기는 부모요소의 크기에 맞춤 */
+img{width: 100%;}
+/* wrap을 100%로 해둬야 홈페이지에 꽉 차게 됨. section, footer를 보면 꽉 차있음 */
+.wrap {width: 100%;}
+/* header에 배경넣고 싶을땐 여기 */
+header {
+    width: 100%;
+    height: 100px;
+    /* 헤더가 스크롤할때마다 따라 내려오게 하는것 벗 이러면 메인과 겹침. 홈페이지는 자바스크립트임 */
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+/* 메뉴를 가운데로 모으고 싶을땐 여기에 width를 줌 */
+
+.center_box {
+    width: 1180px;
+    height: 100%;
+    /* auto는 center box가 브라우저 가운데에 오도록 함-좌우만 적용! */
+    margin: 0 auto;
+}
+/* 메뉴와 로고와 탑메뉴의 부모는 센터박스임 그래서 여기에 justify써야 header안에 있는 것들이 옆으로 나란히 됨  */
+header .center_box {
+    display: flex;
+    flex-flow: row nowrap;
+    /* center box내 영역을 3개로 나눠야 사이공간이 균일하게 세개의 자식이나뉨 */
+    justify-content: space-between;
+    /* 세로 가운데 정렬 */
+    align-items: center; /*부모인 .center box에 높이가 있어야 적용됨*/
+}
+/* 메뉴 가로로 나열하고 싶을땐 ul에다가! */
+/* ul 밑에 자식인 li들이 옆으로 나열되게 함 */
+header .center_box nav ul {
+    display: flex;
+    flex-flow: row nowrap;
+
+}
+/* center 박스내에 메뉴들이 떨어지게 하려고 할때 여기 근데 a만 패딩줘도 떨어짐 */
+/* header .center_box nav ul li { */
+    /* margin-right: 30px; */
+header .center_box nav ul li a {
+    font-weight: bold;
+    padding: 10px 20px; /*얘도 메뉴와 메뉴 사이를 띄게 해줌*/
+    border-radius: 30px;
+}
+header .center_box nav ul li a:hover {
+    background-color: #da291c;
+    color: #fff;
+}
+header .logo {
+    width: 200px;
+}
+header .top_menu ul {
+    display: flex;
+    flex-flow: row nowrap;
+}
+header .top_menu ul li a {
+    padding : 7px 20px;
+    display: block;
+    font-size: 14px;
+}
+header .top_menu ul li:first-child a {
+    text-decoration: underline;
+    font-weight: bold;
+}
+header .top_menu ul li:nth-child(2) a {
+    border: 1px solid #111;
+    border-radius: 20px;
+}
+section {
+    width: 100%;
+    background-color: #eee;
+}
+/* 헤더가 고정되면서 main과 겹치기 때문에 section을 내려줌 */
+section:nth-child(2) {
+    margin-top: 100px;
+    /* margin-top 상쇄현상 해결 */
+    display: inline-block;
+}
+section:nth-child(3){
+    padding: 20px 0;
+}
+section .center_box {
+    /* grid 넣으려면 부모에게 와야함!! */
+    /* 부모에서 grid 어떻게 나눌건지 정해야해!!! 가로, 세로 높이 다! 간격두 */
+    display: grid;
+    /* 3행 2열로 만들겠다 */
+    /* 1:1로 열이 2개다 라는 뜻 */
+    /* repeat (두번반복, 1:1비율) 라는 뜻 */
+    grid-template-columns: repeat(2, 1fr); /*580px 580px이라고 써도돼*/
+    /* position, deliver, package 높이임-.이거쓰고 아래 height 다 지움 */
+    grid-template-rows: 75px 160px 315px;
+    gap:20px;
+}
+section .center_box .position {
+    border-radius: 20px;
+    background-color: #fff;
+    /* position은 1줄 부터 3번줄까지 꽉 차있기 때문에 아래처럼 써줌! */
+    grid-column: 1/3;
+    box-shadow: 2px 2px 5px #ddd;
+    
+    /* margin-top 상쇄현상 해결 */
+    /* 부모랑 center box랑, section이랑 다 겹쳐서 생김 */
+    /* 부모에게 overflow hidden해도 없어짐 */
+    display: inline-block;
+    /* 글씨와 아이콘 가운데 정렬 - 부모에게! 아이콘과 글자의 부모는 position 이니까*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+section .center_box .position img {
+    width: initial; /*원래 크기*/
+    margin-right: 10px;
+    
+}
+section .center_box .banner {
+    grid-column: 1/3;
+    border-radius: 20px;
+    /* 자식요소들을 grid로 어떻게 배치 할건지 */
+    display: grid;
+    grid-template-columns: 214px 214px 712px ;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+}
+/* 태그 선택자로 .banner안의 자식요소를 다 가리킴 */
+section .center_box .banner div{
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    /* 자식요소 아이콘이랑 글자를 가운데로 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 24px;
+    box-shadow: 2px 2px 5px #ddd;
+
+}
+section .center_box .banner div a{
+    /* 아이콘 가운데 정렬 */
+    text-align: center;
+}
+section .center_box .banner div .b_icon {
+    /* 아이콘 크기 */
+    width: 50px;
+}
+section .center_box .banner .store {
+    grid-row: 1/3; /*가로 줄 1번줄~ 3번줄*/
+    grid-column : 3/4; /*세로줄 3번줄~4번줄까지*/
+    /* display:flex 해제하려고 씀 */
+    display: block;
+}
+section .center_box .banner .store img {
+    height: 100%;
+}
+footer {
+    width: 100%;
+    border: 1px solid #ccc;
+}
+footer .footer_top {
+    width: 100%;
+    border-bottom: 1px solid #e1e1e1;
+}
+footer .footer_top .center_box {
+    width: 1180px;
+    border-left: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    display: flex;
+    flex-flow:row nowrap;
+}
+footer .footer_top .center_box .footer_left{
+    width: 350px;
+    border-right: 1px solid #e1e1e1;
+    padding : 60px 80px;
+}
+footer .footer_top .center_box .footer_right{
+    width: 820px;
+    padding: 50px 40px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    
+}
+footer .footer_top .center_box .footer_left .sns {
+    margin-top: 60px;
+}
+footer .footer_top .center_box .footer_left .sns ul {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    }
+footer .footer_top .center_box .footer_right .info ul {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    font-size: 18px;
+}
+footer .footer_top .center_box .footer_right .info {
+    width: 100%;
+}
+footer .footer_top .center_box .footer_right .info ul a {
+    letter-spacing: -1px;
+}
+footer .footer_top .center_box .footer_right address {
+    font-style: normal;
+    font-size: 13px;
+    margin-top: 40px;
+    line-height: 24px;
+}
+footer .footer_top .center_box .footer_right address h4 {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+footer .footer_top .center_box .footer_right .cs {
+    /* 자식 요소 p태그를 .cs영역의 오른쪽 아래에 배치 */
+    display: flex;
+    /* 열기준(교차축) 줄바꿈 방지 */
+    flex-flow: column nowrap;
+    /* 세로 아래쪽 정렬 */
+    justify-content: flex-end;
+    /* 가로 오른쪽 정렬 */
+    align-items: flex-end;    
+}
+
+footer .footer_top .center_box .footer_right .cs p {
+    font-size: 13px;
+    line-height: 24px;
+}
+footer  p {
+    font-size: 15px;
+    text-align: center;
+    line-height: 50px;
+    color: #333;
+}
